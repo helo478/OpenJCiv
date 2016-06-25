@@ -1,8 +1,6 @@
 package com.peak15.openjciv.board;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -207,6 +205,63 @@ public class HexCoordinateTest {
         }
       }
     }
+  }
+  
+  /**
+   * Coordinates at the A, B, C, D, E, and F direction at range 1 are adjacent.
+   */
+  @Test
+  public void coordinatesToTheABCDEFDirectionAtRange1AreAdjacent() {
+    
+    final HexCoordinate origin = new HexCoordinate(0, 0);
+    
+    final HexCoordinate aAtRange1 = new HexCoordinate(-1, 0);
+    final HexCoordinate bAtRange1 = new HexCoordinate(-1, 1);
+    final HexCoordinate cAtRange1 = new HexCoordinate(0, 1);
+    final HexCoordinate dAtRange1 = new HexCoordinate(1, 0);
+    final HexCoordinate eAtRange1 = new HexCoordinate(1, -1);
+    final HexCoordinate fAtRange1 = new HexCoordinate(0, -1);
+    
+    assertTrue(origin.isAdjacent(aAtRange1));
+    assertTrue(origin.isAdjacent(bAtRange1));
+    assertTrue(origin.isAdjacent(cAtRange1));
+    assertTrue(origin.isAdjacent(dAtRange1));
+    assertTrue(origin.isAdjacent(eAtRange1));
+    assertTrue(origin.isAdjacent(fAtRange1));
+  }
+  
+  /**
+   * Coordinates in any direction but more than 1 range are not adjacent.
+   */
+  @Test
+  public void coordinatesMoreThan1SpaceAwayAreNotAdjacent() {
+    
+    final HexCoordinate origin = new HexCoordinate(0, 0);
+    
+    final HexCoordinate aAtRange2 = new HexCoordinate(-2, 0);
+    final HexCoordinate bAtRange2 = new HexCoordinate(-2, 2);
+    final HexCoordinate cAtRange2 = new HexCoordinate(0, 2);
+    final HexCoordinate dAtRange2 = new HexCoordinate(2, 0);
+    final HexCoordinate eAtRange2 = new HexCoordinate(2, -2);
+    final HexCoordinate fAtRange2 = new HexCoordinate(0, -2);
+    
+    assertFalse(origin.isAdjacent(aAtRange2));
+    assertFalse(origin.isAdjacent(bAtRange2));
+    assertFalse(origin.isAdjacent(cAtRange2));
+    assertFalse(origin.isAdjacent(dAtRange2));
+    assertFalse(origin.isAdjacent(eAtRange2));
+    assertFalse(origin.isAdjacent(fAtRange2));
+  }
+  
+  /**
+   * Coordinates at the same location are not adjacent.
+   */
+  @Test
+  public void theSameCoordinatesAreNotAdjacent() {
+    final HexCoordinate origin = new HexCoordinate(0, 0);
+    final HexCoordinate target = new HexCoordinate(0, 0);
+    final boolean actual = origin.isAdjacent(target);
+    assertFalse(actual);
   }
 
   /**

@@ -68,4 +68,20 @@ public class HexCoordinate {
   public String toString() {
     return "(" + x + ", " + y + ")";
   }
+
+  /**
+   * Gets whether a given hex is adjacent.
+   * 
+   * @param rhs the hex coordinate to which to evaluate adjacency
+   * @return whether the given hex coordinate is adjacent
+   */
+  public boolean isAdjacent(final HexCoordinate rhs) {
+    
+    if (Math.abs(x - rhs.getX()) <= 1 && Math.abs(y - rhs.getY()) <= 1
+        && !this.equals(rhs)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
