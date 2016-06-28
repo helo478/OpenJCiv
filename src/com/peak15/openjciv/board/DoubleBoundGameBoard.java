@@ -64,4 +64,11 @@ public class DoubleBoundGameBoard implements GameBoard {
     }
     gamePiecesByHexCoordinate.get(hexCoordinate).remove(gamePiece);
   }
+
+  @Override
+  public void resetMovesRemaining() {
+    for (final GamePiece gamePiece : hexCoordinatesByGamePiece.keySet()) {
+      gamePiece.resetMovesRemaining();
+    }
+  }
 }

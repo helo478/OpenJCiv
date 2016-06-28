@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -222,6 +223,31 @@ public class GameBoardTest {
   @Test(expected = GamePieceNotFoundException.class)
   public void removeGamePiece_nullArgument_shouldThrow() throws GamePieceNotFoundException {
     sut.removeGamePiece(null);
+  }
+  
+  /**
+   * Reset moves remaining should reset the moves remaining of all game pieces on the board.
+   */
+  @Test
+  public void resetMovesRemaining_shouldResetMovesRemainingForAllGamePieces() {
+    
+    final int t = 3;
+    
+    final HexCoordinate[] hexCoordinates = new HexCoordinate[t];
+    final GamePiece[] gamePieces = new GamePiece[t];
+    
+    for (int i = 0; i < t; ++i) {
+      hexCoordinates[i] = mock(HexCoordinate.class);
+      gamePieces[i] = mock(GamePiece.class);
+      sut.putGamePiece(hexCoordinates[i], gamePieces[i]);
+    }
+    
+    sut.resetMovesRemaining();
+    
+    for (int i = 0; i < t; ++i) {
+      verifyZeroInteractions(hexCoordinates[i]);
+      verify(gamePieces[i], times(1)).resetMovesRemaining();
+    }
   }
 
   /**

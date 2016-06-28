@@ -44,4 +44,9 @@ public interface GameBoard {
    *           if the game piece is not on the board
    */
   void removeGamePiece(GamePiece gamePiece) throws GamePieceNotFoundException;
+  
+  /**
+   * Resets the moves remaining of all game pieces on the board.
+   */
+  void resetMovesRemaining();
 }
